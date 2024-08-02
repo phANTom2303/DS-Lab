@@ -113,5 +113,5 @@ void main()
             printf("\nExited...\n");
         }
     }
-
+    free(arr);
 }
