@@ -9,6 +9,9 @@ int main() {
   for (int i = 0; i <= v1; i++) {
     m1[i] = (int *)malloc(3 * sizeof(int));
   }
+  m1[0][0] = r1;
+  m1[0][1] = c1;
+  m1[0][2] = v1;
 
   for (int i = 1; i <= v1; i++) {
     int r, c, v;
@@ -27,6 +30,9 @@ int main() {
     m2[i] = (int *)malloc(3 * sizeof(int));
   }
 
+  m2[0][0] = r2;
+  m2[0][1] = c2;
+  m2[0][2] = v2;
   for (int i = 1; i <= v2; i++) {
     int r, c, v;
     scanf("%d %d %d", &r, &c, &v);
