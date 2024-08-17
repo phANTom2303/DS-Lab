@@ -50,7 +50,6 @@ int main() {
 
   int i1 = 1, i2 = 1, i3 = 1;
 
-  int new_total = 0;
   while (i1 <= v1 && i2 <= v2) {
     if (m1[i1][0] == m2[i2][0] && m1[i1][1] == m2[i2][1]) {
       m3[i3][0] = m1[i1][0];
@@ -60,7 +59,7 @@ int main() {
       i1++;
       i2++;
       i3++;
-      new_total++;
+
     } else if (m1[i1][0] == m2[i2][0] && m1[i1][1] < m2[i2][1]) {
 
       m3[i3][0] = m1[i1][0];
@@ -69,7 +68,7 @@ int main() {
 
       i1++;
       i3++;
-      new_total++;
+
     } else if (m1[i1][0] == m2[i2][0] && m1[i1][1] > m2[i2][1]) {
 
       m3[i3][0] = m2[i2][0];
@@ -78,7 +77,7 @@ int main() {
 
       i2++;
       i3++;
-      new_total++;
+
     } else if (m1[i1][0] < m2[i2][0]) {
 
       m3[i3][0] = m1[i1][0];
@@ -87,7 +86,6 @@ int main() {
 
       i1++;
       i3++;
-      new_total++;
     } else if (m1[i1][0] > m2[i2][0]) {
 
       m3[i3][0] = m2[i2][0];
@@ -96,7 +94,6 @@ int main() {
 
       i2++;
       i3++;
-      new_total++;
     }
   }
 
@@ -108,7 +105,6 @@ int main() {
 
     i1++;
     i3++;
-    new_total++;
   }
 
   while (i2 <= v2) {
@@ -119,10 +115,9 @@ int main() {
 
     i2++;
     i3++;
-    new_total++;
   }
 
-  m3[0][2] = new_total;
+  m3[0][2] = i3 - 1;
   printf("Sum of sparse Matrices is : \n");
   for (int i = 0; i < i3; i++) {
     printf("%d %d %d\n", m3[i][0], m3[i][1], m3[i][2]);
