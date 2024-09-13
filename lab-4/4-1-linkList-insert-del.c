@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 typedef struct linky {
   int data;
   struct linky *next;
@@ -42,20 +43,30 @@ void insert_start(node **start, int newData) {
 }
 
 void insert_pos(node **start, int newData, int pos) {
+  if (*start == NULL && pos != 1) {
+    printf("Invalid Position \n");
+    return;
+  }
+
+  node *q;
+  node *temp = (node *)malloc(sizeof(node));
+  temp->data = newData;
+
   if (pos == 1) {
-    insert_start(start, newData);
+    temp->next = *start;
+    *start = temp;
   } else {
-    int count = 0;
-    node *iterator = *start;
-    node *newNode = (node *)malloc(sizeof(node));
-    while (count != pos && iterator != NULL) {
-      count += 1;
-      iterator = iterator->next;
+    q = (*start);
+    for (int i = 1; i < pos; i++) {
+      q = q->next;
+      if (q == NULL) {
+        printf("Invalid Position.\n");
+        return;
+      }
     }
-    if (count < pos && iterator == NULL) {
-      printf("Invalid Position entered");
-      return;
-    }
+
+    temp->next = q->next;
+    q->next = temp;
   }
 }
 
@@ -77,18 +88,57 @@ void delete_end(node **start) {
     printf("Element Deleted.\n");
   }
 }
+
+void delete_start(node **start) {
+  if (*start == NULL) {
+    printf("Linked List is empty.\n");
+    return;
+  }
+
+  node *q = *start;
+  *start = (*start)->next;
+  free(q);
+}
+
+void delete_pos(node **start, int pos) {
+  node *q, *prev;
+  if (*start == NULL) {
+    printf("Linked List is empty.\n");
+    return;
+  } else if (pos == 1) {
+    q = *start;
+    *start = (*start)->next;
+    free(q);
+  } else {
+    q = *start;
+    for (int i = 1; i < pos; i++) {
+      prev = q;
+      q = q->next;
+      if (q == NULL) {
+        printf("Invalid Position.\n");
+        return;
+      }
+    }
+    prev->next = q->next;
+    free(q);
+  }
+}
 int main() {
   node *start = NULL;
   int choice = -1;
   do {
     printf("\nMENU : \n");
     printf("1. Enter elements at end \n");
-    printf("2. Delete element from end. \n");
-    printf("3. Traverse Linked List\n");
-    printf("4. Exit\n");
-    printf("5. Insert Element at beginning.\n");
+    printf("2. Insert Element at beginning.\n");
+    printf("3. Insert element at a position. \n");
+    printf("4. Traverse Linked List\n");
+    printf("5. Delete Element from beginning.\n");
+    printf("6. Delete Element from end.\n");
+    printf("7. Delete Element at a position.\n");
+    printf("8. Exit.\n");
     printf("Your Choice : ");
     scanf("%d", &choice);
+    int element, pos;
     switch (choice) {
     case 1:
       int n;
@@ -96,7 +146,6 @@ int main() {
       scanf("%d", &n);
       printf("Enter the elements : \n");
       for (int i = 1; i <= n; i++) {
-        int element;
         scanf("%d", &element);
         insert_end(&start, element);
       }
@@ -104,26 +153,43 @@ int main() {
       break;
 
     case 2:
-      delete_end(&start);
-      break;
-
-    case 3:
-      traverse(&start);
-      break;
-
-    case 4:
-      printf("Exiting...\n");
-      break;
-
-    case 5:
-      int element;
       printf("Enter element to add : ");
       scanf("%d", &element);
       insert_start(&start, element);
       break;
 
+    case 3:
+      printf("Enter element to add : ");
+      scanf("%d", &element);
+      printf("Enter Postion to insert at : ");
+      scanf("%d", &pos);
+      insert_pos(&start, element, pos);
+      break;
+
+    case 4:
+      traverse(&start);
+      break;
+
+    case 5:
+      delete_start(&start);
+      break;
+
+    case 6:
+      delete_end(&start);
+      break;
+
+    case 7:
+      printf("Enter Postion to delete from : ");
+      scanf("%d", &pos);
+      delete_pos(&start, pos);
+      break;
+
+    case 8:
+      printf("Exiting...\n");
+      break;
+
     default:
       printf("Invalid input, enter again : ");
     }
-  } while (choice != 4);
+  } while (choice != 8);
 }
