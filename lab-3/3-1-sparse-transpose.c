@@ -37,7 +37,7 @@ int main() {
 
   int k = 1;
   for (int j = 0; j < cols; j++) {
-    for (int i = 0; i <= vals; i++) {
+    for (int i = 1; i <= vals; i++) {
       if (sparse[i][1] == j) {
         transpose[k][0] = sparse[i][1];
         transpose[k][1] = sparse[i][0];
