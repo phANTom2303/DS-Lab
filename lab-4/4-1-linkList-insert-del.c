@@ -123,6 +123,17 @@ void delete_pos(node **start, int pos) {
     free(q);
   }
 }
+
+int countNodes(node **start) {
+  if ((*start) == NULL)
+    return 0;
+  else {
+    int count = 0;
+    for (node *p = (*start); p != NULL; p = p->next)
+      count++;
+    return count;
+  }
+}
 int main() {
   node *start = NULL;
   int choice = -1;
@@ -135,7 +146,8 @@ int main() {
     printf("5. Delete Element from beginning.\n");
     printf("6. Delete Element from end.\n");
     printf("7. Delete Element at a position.\n");
-    printf("8. Exit.\n");
+    printf("8. Count Number of nodes in the list.\n");
+    printf("9. Exit.\n");
     printf("Your Choice : ");
     scanf("%d", &choice);
     int element, pos;
@@ -185,11 +197,15 @@ int main() {
       break;
 
     case 8:
+      int res = countNodes(&start);
+      printf("Number of nodes = %d \n", res);
+      break;
+    case 9:
       printf("Exiting...\n");
       break;
 
     default:
       printf("Invalid input, enter again : ");
     }
-  } while (choice != 8);
+  } while (choice != 9);
 }
