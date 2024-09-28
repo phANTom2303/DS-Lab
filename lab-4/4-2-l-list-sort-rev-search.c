@@ -75,7 +75,7 @@ void sort_list(node **start) {
 
 int searchList(node **start, int target) {
   int pos = 0;
-  for (node *p = (*start); p->next != NULL; p = p->next) {
+  for (node *p = (*start); p != NULL; p = p->next) {
     pos += 1;
     if (p->data == target) {
       return pos;

@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-typedef struct linky {
+typedef struct linkedList {
   int data;
-  struct linky *next;
+  struct linkedList *next;
 } node;
 void traverse(node **start) {
   if (*start == NULL) {
