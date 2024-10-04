@@ -60,17 +60,17 @@ void insert_end(node **last, int newData) {
   }
 }
 
-int delete_beginning(node **last) {
+int delete_begin(node **last) {
   int val;
   if ((*last) == NULL) {
     printf("Linked List is empty.\n");
     val = -999;
   } else if ((*last)->next == (*last)) {
-    int val = (*last)->data;
+    val = (*last)->data;
     free(*last);
     (*last) = NULL;
   } else {
-    int val = (*last)->next->data;
+    val = (*last)->next->data;
     node *toDelete = (*last)->next;
     (*last)->next = (*last)->next->next;
     free(toDelete);
@@ -113,17 +113,60 @@ void input(node **last) {
 }
 int main() {
   node *last = NULL;
-  insert_end(&last, 1);
-  insert_end(&last, 2);
-  insert_end(&last, 3);
+  input(&last);
+  printf("Entered Linked List : \n");
   traverse(&last);
-  printf("Deletes : \n");
-  int v;
-  v = delete_end(&last);
-  traverse(&last);
-  v = delete_end(&last);
-  traverse(&last);
-  v = delete_end(&last);
-  traverse(&last);
-  return 0;
+
+  int choice = -1;
+  do {
+    printf("\nMENU : \n");
+    printf("1. Enter elements at end \n");
+    printf("2. Insert Element at beginning.\n");
+    printf("3. Traverse Linked List\n");
+    printf("4. Delete Element from beginning.\n");
+    printf("5. Delete Element from end.\n");
+    printf("6. Exit.\n");
+    printf("Your Choice : ");
+    scanf("%d", &choice);
+    int element, pos, deleted;
+    switch (choice) {
+    case 1:
+      int n;
+      printf("Enter new element : ");
+      scanf("%d", &n);
+      insert_end(&last, n);
+      printf("Element Added.\n");
+      break;
+
+    case 2:
+      printf("Enter element to add : ");
+      scanf("%d", &element);
+      insert_begin(&last, element);
+      break;
+    case 3:
+      traverse(&last);
+      break;
+
+    case 4:
+      deleted = delete_begin(&last);
+      if (deleted != -999) {
+        printf("%d deleted from linked List. \n", deleted);
+      }
+      break;
+
+    case 5:
+      deleted = delete_end(&last);
+      if (deleted != -999) {
+        printf("%d deleted from linked List. \n", deleted);
+      }
+      break;
+
+    case 6:
+      printf("Exiting...\n");
+      break;
+
+    default:
+      printf("Invalid input, enter again : ");
+    }
+  } while (choice != 6);
 }
